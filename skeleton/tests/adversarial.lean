@@ -45,7 +45,7 @@ def cAxiom : Claim :=
 def cOk : Claim :=
   { specHash := "H_signed", producer := "agent-02", proofText := "by simp" }
 
-/-- `#eval`s.  Expected: rejected x6, then verified.  (See comments per line.) -/
+/- `#eval`s.  Expected: rejected x6, then verified.  (See comments per line.) -/
 #eval gate spec cSorry  "H_signed" []                     -- rejected (sorryFound)
 #eval gate spec cNative "H_signed" []                     -- rejected (nativeDecideFound)
 #eval gate spec cUnsafe "H_signed" []                     -- rejected (unsafeFound)
@@ -59,7 +59,14 @@ def store : Store := []
 #eval (step store spec cSorry "H_signed" []).2            -- rejected; store unchanged
 #eval (step store spec cOk    "H_signed" ["propext"]).1   -- one `verified` MemEntry
 
-/-- Machine-checked intent (kernel-reduced where possible).  If `decide` cannot reduce a `String`
-    primitive in your Lean version, replace with the `#eval` output above. -/
-example : gate spec cSorry "H_signed" [] = .rejected (.sorryFound) := by decide
-example : gate spec cOk    "H_signed" ["propext"] = .verified := by decide
+/-
+  Machine-checked assertions.
+
+  NOTE on scope: the full `gate` verdicts above are shown with `#eval` rather than `by decide`
+  because the textual scan uses `String.splitOn`, which is `@[extern]` and does not reduce in the
+  kernel.  The real gate (design §6 step 2) inspects the *elaborated* `Expr` — kernel-reducible —
+  instead of source text; that upgrade is what makes `decide`-level proofs of the gate possible.
+  The axiom allow-list logic below IS pure `String` equality and therefore kernel-reduces. -/
+example : allowedAxioms.contains "propext" = true := by decide
+example : allowedAxioms.contains "Quot.sound" = true := by decide
+example : allowedAxioms.contains "RiemannHypothesis" = false := by decide

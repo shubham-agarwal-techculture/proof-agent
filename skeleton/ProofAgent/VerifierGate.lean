@@ -25,7 +25,7 @@ inductive RejectReason
   | partialFound
   | kernelBypassOption
   | statementMismatch (signed claimed : String)
-  | forbiddenAxiom (axiom : String)
+  | forbiddenAxiom (axiomName : String)
   deriving Repr, Inhabited, DecidableEq
 
 /-- Permit-list of axioms (Phase 1 A2).  Nothing else may appear in `#print axioms` output. -/

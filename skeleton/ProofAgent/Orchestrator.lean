@@ -6,20 +6,9 @@
   NEVER enter verified memory (counters failure mode F7, memory poisoning).
 -/
 import ProofAgent.VerifierGate
+import ProofAgent.Memory
 
 namespace ProofAgent
-
-/-- One content-addressed memory entry with provenance (invariant #3). -/
-structure MemEntry where
-  hash      : String
-  statement : String
-  producer  : String
-  /-- "verified" (kernel + independent re-check + statement match) or "candidate" (quarantined). -/
-  status    : String
-  deriving Repr, Inhabited
-
-/-- In-memory store.  The real system is an append-only JSONL log plus an index. -/
-abbrev Store := List MemEntry
 
 /-- One orchestrator step.  `propose` (the untrusted agent) is out of band; here its output is the
     `claim`.  `provedHash`/`axiomsUsed` come from elaboration + `#print axioms` in the real system.
@@ -36,5 +25,18 @@ def step (store : Store) (spec : ProblemSpec) (claim : Claim)
           producer := claim.producer, status := "verified" }
       (store ++ [entry], .verified)
   | rej => (store, rej)
+
+/-- End-to-end: run the gate, and only on `.verified` persist the entry to the append-only JSONL
+    store (deduped by content key).  Rejections are never persisted to verified memory. -/
+def verifyAndRecord (path : System.FilePath) (spec : ProblemSpec) (claim : Claim)
+    (provedHash : String) (axiomsUsed : List String) : IO Verdict := do
+  let v := gate spec claim provedHash axiomsUsed
+  match v with
+  | .verified =>
+      let _ ← insert path
+        { hash := spec.specHash, statement := spec.statement,
+          producer := claim.producer, status := "verified" }
+      return v
+  | _ => return v
 
 end ProofAgent

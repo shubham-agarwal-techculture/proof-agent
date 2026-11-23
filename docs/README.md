@@ -42,8 +42,8 @@ consequences) plus a **falsifying experiment**.
 | 6 | [phase-6-roadmap.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/phase-6-roadmap.md) | MVP→v4 scope/exit/kill criteria/staffing; 90-day demo; placement of §5.10–§5.22 |
 | 7 | [phase-7-red-team.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/phase-7-red-team.md) | Pre-mortem: 18 failure/harm modes, early warnings, probes; unknown unknowns; watchlist |
 | 8 | [phase-8-decision-memo.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/phase-8-decision-memo.md) | One page: build first, cut, bet, decide this week |
-| 9 | [phase-9-walking-skeleton.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/phase-9-walking-skeleton.md) | The `/skeleton` prototype: what was built vs design-only (build **unverified**) |
-| — | [../skeleton/](../skeleton) | Lean 4 project: `VerifierGate`, `Spec`, `Orchestrator`, adversarial tests |
+| 9 | [phase-9-walking-skeleton.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/phase-9-walking-skeleton.md) | The `/skeleton` prototype: trusted gate + append-only JSONL memory store; **built & tests passing** on Lean 4.35.0 |
+| — | [../skeleton/](../skeleton) | Lean 4 project: `VerifierGate`, `Spec`, `Memory`, `Orchestrator` + adversarial & memory tests |
 
 ---
 
@@ -111,5 +111,6 @@ flowchart TB
 ```
 
 **Sources.** Phase 0 carries the full citation list; no citation is invented (Phase 0 flags anything
-unverified). **Skeleton build status:** authored, **not compiled** here (no Lean toolchain); see
-Phase 9 §2.
+unverified). **Skeleton build status:** **built and tested** on Lean 4.35.0 (`lake build` succeeds;
+both `tests/adversarial.lean` and `tests/memory.lean` exit 0 — all cheats rejected, only verified
+results persisted); see Phase 9 §7 and §7b.
