@@ -1,0 +1,47 @@
+# Lean / Lake build artifacts
+.lake/
+.lake/*
+build/
+lake-packages/
+*.olean
+*.ilean
+*.c
+
+# Lean toolchain cache
+.elan/
+
+# Python (orchestrator drivers, certified-computation scripts)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Node (tooling / MCP servers), if used
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Logs, traces, cost/instrumentation dumps
+*.log
+logs/
+traces/
+*.jsonl
+
+# Editors & IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

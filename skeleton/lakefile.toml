@@ -1,0 +1,17 @@
+# ProofAgent — walking skeleton (Phase 9)
+#
+# NOTE: this file is ILLUSTRATIVE. It was authored without a Lean toolchain present in the
+# authoring environment (see docs/phase-9-walking-skeleton.md). Adjust `rev` to a tag that
+# matches the installed `lean-toolchain` before building.
+
+name = "proof_agent"
+version = "0.1.0"
+defaultTargets = ["ProofAgent"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.35.0"
+
+[[lean_lib]]
+name = "ProofAgent"
