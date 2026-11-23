@@ -17,3 +17,9 @@ defaultTargets = ["ProofAgent"]
 
 [[lean_lib]]
 name = "ProofAgent"
+
+# The tool server: `lake exe checkServer` reads {"id","source"} JSON lines on stdin and writes
+# {"id","ok","diagnostics"} JSON lines on stdout (see ProofAgent/Tools/CheckServer.lean).
+[[lean_exe]]
+name = "checkServer"
+root = "ProofAgent.Tools.CheckServer"

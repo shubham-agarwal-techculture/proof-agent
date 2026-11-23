@@ -11,6 +11,25 @@ produced across the brief's Phases 0–9.
 
 ---
 
+## New here? Start with the Reader's Guide
+
+The phase files below are the **expert reference**. If you are new to the project — or want the same
+design explained at your own level, from a curious high-schooler to a seasoned researcher — read the
+**[Reader's Guide](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/guide/README.md)** first:
+
+| Level | File | For |
+|---|---|---|
+| T0 | [t0-high-schooler.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/guide/t0-high-schooler.md) | Absolute beginner — what a proof is, why a computer checks one, what this is |
+| T1 | [t1-intuition.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/guide/t1-intuition.md) | Undergrad/engineer — how it works and *why* it's built this way |
+| T2 | [t2-practitioner.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/guide/t2-practitioner.md) | Programmer — build, run, and extend the skeleton |
+| T3 | [t3-expert.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/guide/t3-expert.md) | Researcher — architecture, economics, failure modes, bets |
+| — | [glossary.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/guide/glossary.md) | Every term, at every level |
+
+The guide also ships three supplementary shelves — **persona guides** (`personas/`), **background
+primers** (`primers/`), and **task how-tos** (`how-to/`) — listed in the [guide index §5](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/guide/README.md).
+
+---
+
 ## How to read this set
 
 Files are one-per-phase and follow the brief's order. Read in order for the argument; jump by topic for
@@ -42,8 +61,8 @@ consequences) plus a **falsifying experiment**.
 | 6 | [phase-6-roadmap.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/phase-6-roadmap.md) | MVP→v4 scope/exit/kill criteria/staffing; 90-day demo; placement of §5.10–§5.22 |
 | 7 | [phase-7-red-team.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/phase-7-red-team.md) | Pre-mortem: 18 failure/harm modes, early warnings, probes; unknown unknowns; watchlist |
 | 8 | [phase-8-decision-memo.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/phase-8-decision-memo.md) | One page: build first, cut, bet, decide this week |
-| 9 | [phase-9-walking-skeleton.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/phase-9-walking-skeleton.md) | The `/skeleton` prototype: trusted gate + append-only JSONL memory store; **built & tests passing** on Lean 4.35.0 |
-| — | [../skeleton/](../skeleton) | Lean 4 project: `VerifierGate`, `Spec`, `Memory`, `Orchestrator` + adversarial & memory tests |
+| 9 | [phase-9-walking-skeleton.md](file:///d:/projects-shubham/02.06.2026/personal_projects/proof-agent/docs/phase-9-walking-skeleton.md) | The `/skeleton` prototype: trusted gate + JSONL memory store + Lean check/**goal-state** tools & server; **built & tests passing** on Lean 4.35.0 |
+| — | [../skeleton/](../skeleton) | Lean 4 project: `VerifierGate`, `Spec`, `Memory`, `Orchestrator`, `Tools/*` + 4 test suites |
 
 ---
 
@@ -112,5 +131,7 @@ flowchart TB
 
 **Sources.** Phase 0 carries the full citation list; no citation is invented (Phase 0 flags anything
 unverified). **Skeleton build status:** **built and tested** on Lean 4.35.0 (`lake build` succeeds;
-both `tests/adversarial.lean` and `tests/memory.lean` exit 0 — all cheats rejected, only verified
-results persisted); see Phase 9 §7 and §7b.
+`tests/adversarial.lean`, `tests/memory.lean`, `tests/leancheck.lean` and `tests/goals.lean` all exit
+0 — cheats rejected, only verified results persisted, diagnostics and initial goal states read back, and
+the `lake exe checkServer` tool server answers `check`/`goals` JSON requests); see Phase 9 §7, §7b, §7c,
+§7d.

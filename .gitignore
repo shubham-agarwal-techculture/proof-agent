@@ -35,6 +35,9 @@ logs/
 traces/
 *.jsonl
 
+# Tool scratch files
+leancheck_tmp.lean
+
 # Editors & IDEs
 .idea/
 .vscode/
